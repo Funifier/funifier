@@ -1,6 +1,6 @@
 {
   "name": "funifier",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Funifier library",
   "main": "index.js",
   "scripts": {

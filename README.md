@@ -8,7 +8,7 @@ var funifier = new Funifier({apiKey:'my_api_key'});
 
 funifier.authenticate({player: 'my_player', password : 'my_password', auth_mode : 'PASSWORD'}).then(function(){
     console.log('user logged');
-}).reject(function(err){
+}).catch(function(err){
     console.log(err);
 });
 ```
