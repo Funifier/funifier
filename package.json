@@ -1,6 +1,6 @@
 {
   "name": "funifier",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Funifier library",
   "main": "index.js",
   "scripts": {
@@ -23,6 +23,7 @@
     "lodash": "^3.10.1",
     "q": "^1.4.1",
     "request": "^1.4.0",
+    "superagent": "^1.4.0",
     "validator": "^4.1.0"
   },
   "devDependencies": {
