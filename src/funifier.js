@@ -31,7 +31,7 @@ var Funifier = function(args){
     };
 
     this.getApiSecret = function(){
-        return this.options.apiSecret;
+        return this.options.apiSecret || '';
     };
 
     this.getAccessToken = function(){
