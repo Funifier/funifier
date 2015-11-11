@@ -118,7 +118,7 @@ var Funifier = function(args){
             trigger_type: 'TRIGGER_HTML'
         };
         var options = _.extend(defaults, args);
-        if(!this.options.action){
+        if(!options.action){
             throw new Error('action is required!');
         }
         this.post('track').send(options).end(function(err,data){
