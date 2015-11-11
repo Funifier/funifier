@@ -78,7 +78,7 @@ var Funifier = function(args){
             throw new Error('url is required!');
         }
         var url = this.options.url + _url;
-        var _promisse = this.request.post(url).use(addHeadersRequest);
+        var _promisse = this.request.post(url).use(addHeadersRequest).use(interceptErrorResponse);
         if(typeof callback === 'function'){
             _promisse.end(callback);
         }else{
@@ -91,7 +91,7 @@ var Funifier = function(args){
             throw new Error('endpoint is required!');
         }
         var url = this.options.url + _url;
-        var _promisse = this.request.del(url).use(addHeadersRequest);
+        var _promisse = this.request.del(url).use(addHeadersRequest).use(interceptErrorResponse);
         if(typeof callback === 'function'){
             _promisse.end(callback);
         }else{
@@ -104,7 +104,7 @@ var Funifier = function(args){
             throw new Error('endpoint is required!');
         }
         var url = this.options.url + _url;
-        var _promisse = this.request.put(url).use(addHeadersRequest);
+        var _promisse = this.request.put(url).use(addHeadersRequest).use(interceptErrorResponse);
         if(typeof callback === 'function'){
             _promisse.end(callback);
         }else{
