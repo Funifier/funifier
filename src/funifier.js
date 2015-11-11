@@ -49,7 +49,7 @@ var Funifier = function(args){
             if(!err){
                 var data = res.body;
                 if(data!==undefined && ((data.code!==undefined && data.code!==200) || data.errorCode!==undefined)){
-                    err = data;
+                    err = new Error(data.message || data.errorMessage || data.errorCode || data.code);
                     res.status = data.code || data.errorCode || 500;
                     res.body = null;
                 }
