@@ -12,7 +12,10 @@ var Funifier = function(args){
         url: 'https://service2.funifier.com/2.0.0/'
     };
 
-    if (!(this instanceof Funifier)) return new Funifier(args);
+    if (!(this instanceof Funifier)) {
+        return new Funifier(args);
+    }
+
     this.options = _.extend(defaults, args);
     if(!this.options.apiKey){
         throw new Error('apiKey is required!');
@@ -27,13 +30,17 @@ var Funifier = function(args){
         return this.options.apiKey;
     };
 
+    this.getApiSecret = function(){
+        return this.options.apiSecret;
+    };
+
     this.getAccessToken = function(){
         return this.options.accessToken || '';
     };
 
 
     var addHeadersRequest = function(req){
-        req.set({'X-Api-Key': _$this.getApiKey()}).set({'X-Access-Token': _$this.getAccessToken()});
+        req.set({'X-Api-Key': _$this.getApiKey()}).set({'X-Access-Token': _$this.getAccessToken()}).set({'X-Api-Secret' : _$this.getApiSecret()});
     };
 
     var interceptErrorResponse = function(req){
@@ -41,7 +48,7 @@ var Funifier = function(args){
         req.callback = function(err, res) {
             if(!err){
                 var data = res.body;
-                if(data!=undefined && ((data.code!=undefined && data.code!==200) || data.errorCode!==undefined)){
+                if(data!==undefined && ((data.code!==undefined && data.code!==200) || data.errorCode!==undefined)){
                     err = data;
                     res.status = data.code || data.errorCode || 500;
                     res.body = null;
@@ -70,7 +77,7 @@ var Funifier = function(args){
         if(validator.isNull(_url)){
             throw new Error('url is required!');
         }
-        var url = url + _url;
+        var url = this.options.url + _url;
         var _promisse = this.request.post(url).use(addHeadersRequest);
         if(typeof callback === 'function'){
             _promisse.end(callback);
@@ -83,7 +90,7 @@ var Funifier = function(args){
         if(validator.isNull(_url)){
             throw new Error('endpoint is required!');
         }
-        var url = url + _url;
+        var url = this.options.url + _url;
         var _promisse = this.request.del(url).use(addHeadersRequest);
         if(typeof callback === 'function'){
             _promisse.end(callback);
@@ -96,7 +103,7 @@ var Funifier = function(args){
         if(validator.isNull(_url)){
             throw new Error('endpoint is required!');
         }
-        var url = url + _url;
+        var url = this.options.url + _url;
         var _promisse = this.request.put(url).use(addHeadersRequest);
         if(typeof callback === 'function'){
             _promisse.end(callback);
@@ -143,7 +150,7 @@ var Funifier = function(args){
                 deferred.reject(err);
             }
             if(typeof callback === 'function'){
-                callback(err)
+                callback(err);
             }
         });
         return deferred.promise;
@@ -163,7 +170,7 @@ var Funifier = function(args){
                 deferred.reject(err);
             }
             if(typeof callback === 'function'){
-                callback(err)
+                callback(err);
             }
         });
         return deferred.promise;
@@ -172,5 +179,5 @@ var Funifier = function(args){
     return this;
 };
 
-
+global.Funifier = Funifier;
 module.exports = Funifier;

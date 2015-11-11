@@ -23,7 +23,7 @@ module.exports = function(grunt) {
         },
         browserify: {
             standalone: {
-                src: [ '<%= pkg.name %>.js' ],
+                src: [ 'src/<%= pkg.name %>.js' ],
                 dest: './browser/dist/<%= pkg.name %>.standalone.js',
                 options: {
                     browserifyOptions: {
